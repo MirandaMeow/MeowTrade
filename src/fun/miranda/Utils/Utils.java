@@ -74,11 +74,11 @@ public class Utils {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(message));
     }
 
-    public static HashMap<Player, Integer> sortHashMap(HashMap<Player, Integer> map) {
-        ArrayList<Map.Entry<Player, Integer>> list = new ArrayList<>(map.entrySet());
+    public static HashMap<String, Integer> sortHashMap(HashMap<String, Integer> map) {
+        ArrayList<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
         list.sort((o1, o2) -> o2.getValue() - o1.getValue());
-        HashMap<Player, Integer> sortedMap = new LinkedHashMap<>();
-        for (Map.Entry<Player, Integer> entry : list) {
+        HashMap<String, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : list) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
         return sortedMap;

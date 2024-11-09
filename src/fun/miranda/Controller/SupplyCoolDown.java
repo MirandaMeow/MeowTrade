@@ -41,6 +41,11 @@ public class SupplyCoolDown {
     }
 
     public void run() {
+        if (this.task != null) {
+            if (!this.task.isCancelled()) {
+                this.task.cancel();
+            }
+        }
         this.coolDownInteger = Config.getInstance().getSupplyCoolDown();
         this.task = plugin.getServer().getScheduler().runTaskTimer(plugin, this.coolDown, 0, 20L);
     }

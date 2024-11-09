@@ -25,6 +25,9 @@ public class GameControl {
     }
 
     public void start() {
+        if (this.isGameStart) {
+            return;
+        }
         this.isGameStart = true;
         this.coolDown.run();
 
@@ -40,6 +43,9 @@ public class GameControl {
     }
 
     public void stop() {
+        if (!this.isGameStart) {
+            return;
+        }
         this.isGameStart = false;
         this.coolDown.stop();
 

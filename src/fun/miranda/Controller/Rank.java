@@ -14,8 +14,8 @@ public class Rank {
     public static String COOLDOWN = "";
     private static Rank instance;
     private final Scoreboard scoreboard;
-    private final HashMap<Player, Integer> playerKill;
-    private final HashMap<Player, Integer> playerDeath;
+    private final HashMap<String, Integer> playerKill;
+    private final HashMap<String, Integer> playerDeath;
     private Objective objective;
 
     private Rank() {
@@ -55,24 +55,24 @@ public class Rank {
         Rank.ShowScoreBoardToAllPlayer(rank.getScoreboard());
     }
 
-    public void addPlayerKill(Player player) {
-        if (!this.playerKill.containsKey(player)) {
-            this.playerKill.put(player, 0);
+    public void addPlayerKill(String playerName) {
+        if (!this.playerKill.containsKey(playerName)) {
+            this.playerKill.put(playerName, 0);
         }
-        if (!this.playerDeath.containsKey(player)) {
-            this.playerDeath.put(player, 0);
+        if (!this.playerDeath.containsKey(playerName)) {
+            this.playerDeath.put(playerName, 0);
         }
-        this.playerKill.put(player, this.playerKill.get(player) + 1);
+        this.playerKill.put(playerName, this.playerKill.get(playerName) + 1);
     }
 
-    public void addPlayerDeath(Player player) {
-        if (!this.playerKill.containsKey(player)) {
-            this.playerKill.put(player, 0);
+    public void addPlayerDeath(String playerName) {
+        if (!this.playerKill.containsKey(playerName)) {
+            this.playerKill.put(playerName, 0);
         }
-        if (!this.playerDeath.containsKey(player)) {
-            this.playerDeath.put(player, 0);
+        if (!this.playerDeath.containsKey(playerName)) {
+            this.playerDeath.put(playerName, 0);
         }
-        this.playerDeath.put(player, this.playerDeath.get(player) + 1);
+        this.playerDeath.put(playerName, this.playerDeath.get(playerName) + 1);
     }
 
     public void updateScoreboard() {
@@ -80,7 +80,7 @@ public class Rank {
         this.objective = this.scoreboard.registerNewObjective("MeowTradeKD", Criteria.DUMMY, Strings.Title);
         this.objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-        HashMap<Player, Integer> sortedMap = Utils.sortHashMap(this.playerKill);
+        HashMap<String, Integer> sortedMap = Utils.sortHashMap(this.playerKill);
 
         int length = sortedMap.size() - 1;
 
@@ -91,10 +91,12 @@ public class Rank {
         Score desc = this.objective.getScore(Strings.Description);
         desc.setScore(length + 1);
 
-        for (Map.Entry<Player, Integer> entry : sortedMap.entrySet()) {
-            Player player = entry.getKey();
+        for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
+            String playerName = entry.getKey();
+            Player player = plugin.getServer().getPlayer(playerName);
             int kills = entry.getValue();
-            int deaths = this.playerDeath.get(player);
+            int deaths = this.playerDeath.get(playerName);
+            assert player != null;
             int money = new User(player).getMoney();
             Score score = this.objective.getScore(String.format(Strings.KDShow, player.getName(), kills, deaths, money));
             score.setScore(length);

@@ -80,8 +80,6 @@ public class MeowTradeCommand implements TabExecutor {
         if (args.length == 1) {
             if (sender.isOp()) {
                 return Utils.listFilter(new ArrayList<>(List.of("reload", "newpage", "delpage", "rename", "setpage", "setitem", "switch", "money", "resetallplayer", "trade", "lottery")), args[0]);
-            } else {
-                return Utils.listFilter(new ArrayList<>(List.of("trade")), args[0]);
             }
         }
         if (args.length == 2) {

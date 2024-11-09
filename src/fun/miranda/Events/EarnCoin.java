@@ -25,6 +25,9 @@ public class EarnCoin implements Listener {
         if (damagerPlayer == null) {
             return;
         }
+        if (victimPlayer.getName().equals(damagerPlayer.getName())) {
+            return;
+        }
         if (!GameControl.getInstance().isGameStart()) {
             return;
         }
@@ -34,8 +37,8 @@ public class EarnCoin implements Listener {
         user.addMoney(config.getKillBonus());
         Rank rank = Rank.getInstance();
         Rank.showRank();
-        rank.addPlayerKill(damagerPlayer);
-        rank.addPlayerDeath(victimPlayer);
+        rank.addPlayerKill(damagerPlayer.getName());
+        rank.addPlayerDeath(victimPlayer.getName());
         rank.updateScoreboard();
         plugin.getServer().broadcastMessage(String.format(Strings.Kill, damagerPlayer.getName(), victimPlayer.getName(), config.getKillBonus()));
     }
