@@ -1,0 +1,12 @@
+name: MeowTrade
+main: fun.miranda.MeowTrade
+version: 1.0.0
+author: Miranda
+description: 猫子的交易行
+softdepend: [ ]
+load: POSTWORLD
+api-version: 1.20
+
+commands:
+  meowtrade:
+    description: 主命令

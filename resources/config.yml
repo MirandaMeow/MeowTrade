@@ -1,0 +1,6 @@
+killBonus: 10
+killBatBonus: 2
+supplyCoolDown: 300
+defaultCoin: 49
+coinBonus:
+  nautilus_shell: 20
