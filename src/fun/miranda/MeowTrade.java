@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 
 public class MeowTrade extends JavaPlugin {
     public static MeowTrade plugin;
-    public static boolean gameSwitch = false;
     public Logger logger;
 
     @Override

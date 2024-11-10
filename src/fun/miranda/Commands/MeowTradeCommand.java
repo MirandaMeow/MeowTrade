@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static fun.miranda.MeowTrade.plugin;
 
@@ -27,51 +26,20 @@ public class MeowTradeCommand implements TabExecutor {
             return true;
         }
         String command = args[0];
-        if (Objects.equals(command, "reload")) {
-            this.actionReload(sender);
-            return true;
+        switch (command) {
+            case "reload" -> this.actionReload(sender);
+            case "newpage" -> this.actionNewPage(sender, args);
+            case "delpage" -> this.actionDelPage(sender, args);
+            case "rename" -> this.actionRename(sender, args);
+            case "setpage" -> this.actionSetPage(sender, args);
+            case "setitem" -> this.actionSetItem(sender, args);
+            case "trade" -> this.actionTrade(sender, args);
+            case "switch" -> this.actionSwitch(sender, args);
+            case "resetallplayer" -> this.actionResetAllPlayer(sender, args);
+            case "money" -> this.actionSetMoney(sender, args);
+            case "lottery" -> this.actionLottery(sender, args);
+            default -> sender.sendMessage(Strings.MeowTradeUsage);
         }
-        if (Objects.equals(command, "newpage")) {
-            this.actionNewPage(sender, args);
-            return true;
-        }
-        if (Objects.equals(command, "delpage")) {
-            this.actionDelPage(sender, args);
-            return true;
-        }
-        if (Objects.equals(command, "rename")) {
-            this.actionRename(sender, args);
-            return true;
-        }
-        if (Objects.equals(command, "setpage")) {
-            this.actionSetPage(sender, args);
-            return true;
-        }
-        if (Objects.equals(command, "setitem")) {
-            this.actionSetItem(sender, args);
-            return true;
-        }
-        if (Objects.equals(command, "trade")) {
-            this.actionTrade(sender, args);
-            return true;
-        }
-        if (Objects.equals(command, "switch")) {
-            this.actionSwitch(sender, args);
-            return true;
-        }
-        if (Objects.equals(command, "resetallplayer")) {
-            this.actionResetAllPlayer(sender, args);
-            return true;
-        }
-        if (Objects.equals(command, "money")) {
-            this.actionSetMoney(sender, args);
-            return true;
-        }
-        if (Objects.equals(command, "lottery")) {
-            this.actionLottery(sender, args);
-            return true;
-        }
-        sender.sendMessage(Strings.MeowTradeUsage);
         return true;
     }
 
@@ -301,10 +269,14 @@ public class MeowTradeCommand implements TabExecutor {
             sender.sendMessage(Strings.UserSetUsage);
             return;
         }
-        String playerName = args[1];
-        Player player = plugin.getServer().getPlayer(playerName);
-        if (player == null) {
-            sender.sendMessage(Strings.UserNotFound);
+        String targetName = args[1];
+        List<Player> target = new ArrayList<>();
+        if (targetName.equals("all")) {
+            target.addAll(plugin.getServer().getOnlinePlayers());
+        } else if (plugin.getServer().getPlayer(targetName) != null) {
+            target.add(plugin.getServer().getPlayer(targetName));
+        } else {
+            sender.sendMessage(Strings.PlayerNotFound);
             return;
         }
         String setCommand = args[2];
@@ -321,24 +293,33 @@ public class MeowTradeCommand implements TabExecutor {
             sender.sendMessage(Strings.ValueError);
             return;
         }
-        User user = new User(player);
-        switch (setCommand) {
-            case "add":
-                user.addMoney(money);
-                sender.sendMessage(String.format(Strings.Add, playerName, money, user.getMoney()));
-                break;
-            case "sub":
-                boolean result = user.subMoney(money);
-                if (result) {
-                    sender.sendMessage(String.format(Strings.SubSuccess, playerName, money, user.getMoney()));
-                } else {
-                    sender.sendMessage(String.format(Strings.SubFail, playerName, user.getMoney()));
-                }
-                break;
-            case "set":
-                user.setMoney(money);
-                sender.sendMessage(String.format(Strings.Set, playerName, money));
-                break;
+        int count = 0;
+        for (Player player : target) {
+            count++;
+            User user = new User(player);
+            String showName = target.size() == 1 ? target.get(0).getName() : Strings.ALL;
+            switch (setCommand) {
+                case "add":
+                    user.addMoney(money);
+                    if (count == 1) {
+                        sender.sendMessage(String.format(Strings.Add, showName, money, user.getMoney()));
+                    }
+                    break;
+                case "sub":
+                    boolean result = user.subMoney(money);
+                    if (result) {
+                        sender.sendMessage(String.format(Strings.SubSuccess, player.getName(), money, user.getMoney()));
+                    } else {
+                        sender.sendMessage(String.format(Strings.SubFail, player.getName(), user.getMoney()));
+                    }
+                    break;
+                case "set":
+                    user.setMoney(money);
+                    if (count == 1) {
+                        sender.sendMessage(String.format(Strings.Set, showName, money));
+                    }
+                    break;
+            }
         }
         if (GameControl.getInstance().isGameStart()) {
             Rank rank = Rank.getInstance();

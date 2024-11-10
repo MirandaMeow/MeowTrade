@@ -4,7 +4,6 @@ public class Strings {
     public static String Enable = "[交易行] 启动";
     public static String Disable = "[交易行] 禁用";
     public static String UserSetUsage = "§e用法: §b/meowtrader §6setmoney <player> <add|sub|set> <value>";
-    public static String UserNotFound = "§c找不到玩家";
     public static String ValueError = "§c输入的值有误";
     public static String Add = "§e给§b%s§e的账户增加了§d%d§e金币, 现在为§d%d§e金币";
     public static String SubSuccess = "§e从§b%s§e的账户扣除了§d%d§e金币, 现在为§d%d§e金币";
@@ -56,4 +55,5 @@ public class Strings {
     public static String GetMoney = "§e你获得了§d%d§e金币";
     public static String TradeUsage = "§e用法: §b/meowtrade §6trade <player> <pageName>";
     public static String PlayerNotFound = "§c玩家不在线或不存在";
+    public static String ALL = "所有人";
 }

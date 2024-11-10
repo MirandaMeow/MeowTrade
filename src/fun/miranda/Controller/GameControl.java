@@ -1,8 +1,6 @@
 package fun.miranda.Controller;
 
-import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
-import org.bukkit.GameRule;
 import org.bukkit.entity.Player;
 
 import static fun.miranda.MeowTrade.plugin;
@@ -33,8 +31,6 @@ public class GameControl {
 
         Rank.showRank();
         User.resetAllPlayersCoins();
-        plugin.getServer().getWorlds().get(0).setDifficulty(Difficulty.HARD);
-        plugin.getServer().getWorlds().get(0).setGameRule(GameRule.KEEP_INVENTORY, true);
         for (Player player : plugin.getServer().getOnlinePlayers()) {
             player.setGameMode(GameMode.ADVENTURE);
             User user = new User(player);
@@ -50,8 +46,6 @@ public class GameControl {
         this.coolDown.stop();
 
         Rank.removeRank();
-        plugin.getServer().getWorlds().get(0).setDifficulty(Difficulty.PEACEFUL);
-        plugin.getServer().getWorlds().get(0).setGameRule(GameRule.KEEP_INVENTORY, false);
         for (Player player : plugin.getServer().getOnlinePlayers()) {
             player.setGameMode(GameMode.CREATIVE);
         }

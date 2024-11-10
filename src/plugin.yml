@@ -1,6 +1,6 @@
 name: MeowTrade
 main: fun.miranda.MeowTrade
-version: 1.0.0
+version: 1.1.0
 author: Miranda
 description: 猫子的交易行
 softdepend: [ ]
