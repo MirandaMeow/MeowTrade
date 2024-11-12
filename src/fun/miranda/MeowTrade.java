@@ -1,10 +1,7 @@
 package fun.miranda;
 
 import fun.miranda.Commands.MeowTradeCommand;
-import fun.miranda.Events.EarnCoin;
-import fun.miranda.Events.SetPageOrChest;
-import fun.miranda.Events.ShowScoreBoard;
-import fun.miranda.Events.TradeClick;
+import fun.miranda.Events.*;
 import fun.miranda.Utils.Strings;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
@@ -34,6 +31,7 @@ public class MeowTrade extends JavaPlugin {
         this.registerEvent(new SetPageOrChest());
         this.registerEvent(new TradeClick());
         this.registerEvent(new ShowScoreBoard());
+        this.registerEvent(new DeathClearBag());
 
         logger.info(Strings.Enable);
     }

@@ -4,6 +4,7 @@ supplyCoolDown: 300
 defaultCoin: 49
 broadcastLottery: true
 showCoolDown: true
+clearBagWhenDeath: false
 coinBonus:
   nautilus_shell: 20
-useLotteryBox: []
+useLotteryBox: [ ]

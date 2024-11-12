@@ -22,6 +22,7 @@ public class Config {
     private List<String> useLotteryBox;
     private boolean broadcastLottery;
     private boolean showCoolDown;
+    private boolean clearBagWhenDeath;
 
 
     private Config() {
@@ -46,6 +47,7 @@ public class Config {
         this.useLotteryBox = this.config.getStringList("useLotteryBox");
         this.broadcastLottery = this.config.getBoolean("broadcastLottery", true);
         this.showCoolDown = this.config.getBoolean("showCoolDown", true);
+        this.clearBagWhenDeath = this.config.getBoolean("clearBagWhenDeath", false);
     }
 
     public void reload() {
@@ -90,6 +92,10 @@ public class Config {
 
     public Integer getCoinBonus(String materialName) {
         return this.config.getInt(String.format("coinBonus.%s", materialName), 0);
+    }
+
+    public boolean getClearBagWhenDeath() {
+        return this.clearBagWhenDeath;
     }
 
     public void reloadConfig() {
