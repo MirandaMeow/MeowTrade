@@ -15,8 +15,13 @@ public class SupplyCoolDown {
     private SupplyCoolDown() {
         this.coolDown = () -> {
             this.coolDownInteger--;
-            String[] MMSS = this.parseTime();
-            Rank.COOLDOWN = String.format(Strings.CoolDown, MMSS[0], MMSS[1]);
+            Config config = Config.getInstance();
+            if (config.getShowCoolDown()) {
+                String[] MMSS = this.parseTime();
+                Rank.COOLDOWN = String.format(Strings.CoolDown, MMSS[0], MMSS[1]);
+            } else {
+                Rank.COOLDOWN = Strings.EmptyCoolDown;
+            }
             Rank rank = Rank.getInstance();
             rank.updateScoreboard();
             if (this.coolDownInteger <= 0) {
@@ -27,8 +32,11 @@ public class SupplyCoolDown {
                     }
                     box.randomGetItem(player);
                 }
-                this.coolDownInteger = Config.getInstance().getSupplyCoolDown();
-                plugin.getServer().broadcastMessage(Strings.Supply);
+
+                this.coolDownInteger = config.getSupplyCoolDown();
+                if (config.getBroadcastLottery()) {
+                    plugin.getServer().broadcastMessage(Strings.Supply);
+                }
             }
         };
     }

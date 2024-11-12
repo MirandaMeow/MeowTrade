@@ -19,6 +19,9 @@ public class Config {
     private Integer supplyCoolDown;
     private Integer defaultCoin;
     private List<String> coinBonus;
+    private List<String> useLotteryBox;
+    private boolean broadcastLottery;
+    private boolean showCoolDown;
 
 
     private Config() {
@@ -40,6 +43,9 @@ public class Config {
         this.supplyCoolDown = this.config.getInt("supplyCoolDown", 300);
         this.defaultCoin = this.config.getInt("defaultCoin", 49);
         this.coinBonus = Utils.getNodeList((YamlConfiguration) this.config, "coinBonus");
+        this.useLotteryBox = this.config.getStringList("useLotteryBox");
+        this.broadcastLottery = this.config.getBoolean("broadcastLottery", true);
+        this.showCoolDown = this.config.getBoolean("showCoolDown", true);
     }
 
     public void reload() {
@@ -68,6 +74,18 @@ public class Config {
             return new ArrayList<>();
         }
         return this.coinBonus;
+    }
+
+    public List<String> getUseLotteryBoxList() {
+        return this.useLotteryBox;
+    }
+
+    public boolean getBroadcastLottery() {
+        return this.broadcastLottery;
+    }
+
+    public boolean getShowCoolDown() {
+        return this.showCoolDown;
     }
 
     public Integer getCoinBonus(String materialName) {

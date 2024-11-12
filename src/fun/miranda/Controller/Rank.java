@@ -11,7 +11,7 @@ import java.util.Map;
 import static fun.miranda.MeowTrade.plugin;
 
 public class Rank {
-    public static String COOLDOWN = "";
+    public static String COOLDOWN = Strings.EmptyCoolDown;
     private static Rank instance;
     private final Scoreboard scoreboard;
     private final HashMap<String, Integer> playerKill;

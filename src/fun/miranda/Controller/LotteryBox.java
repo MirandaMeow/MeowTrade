@@ -80,10 +80,17 @@ public class LotteryBox {
 
     public void randomGetItem(Player player) {
         List<ItemStack> allItems = new ArrayList<>();
-        for (ItemStack[] itemStacks : this.inventoryMap.values()) {
-            for (ItemStack itemStack : itemStacks) {
-                if (itemStack != null) {
-                    allItems.add(itemStack);
+        List<String> useLotteryBox = Config.getInstance().getUseLotteryBoxList();
+        if (useLotteryBox.isEmpty()) {
+            return;
+        }
+        for (String lotteryBox : useLotteryBox) {
+            if (this.inventoryMap.containsKey(lotteryBox)) {
+                ItemStack[] itemStacks = this.inventoryMap.get(lotteryBox);
+                for (ItemStack itemStack : itemStacks) {
+                    if (itemStack != null) {
+                        allItems.add(itemStack);
+                    }
                 }
             }
         }

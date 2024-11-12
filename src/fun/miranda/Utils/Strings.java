@@ -56,4 +56,5 @@ public class Strings {
     public static String TradeUsage = "§e用法: §b/meowtrade §6trade <player> <pageName>";
     public static String PlayerNotFound = "§c玩家不在线或不存在";
     public static String ALL = "所有人";
+    public static String EmptyCoolDown = "§a============================";
 }
